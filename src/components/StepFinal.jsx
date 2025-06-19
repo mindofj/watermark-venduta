@@ -1,8 +1,15 @@
-export default function StepFinal() {
+export default function StepFinal({ reset }) {
   return (
-    <div className='text-center text-white'>
-      <h2 className='text-3xl font-bold uppercase'>StepFinal</h2>
-      <p className='text-neutral-400 mt-2'>Contenuto in costruzione</p>
+    <div className="w-full h-full flex flex-col items-center justify-center text-center gap-4 p-4">
+      <h2 className="text-3xl font-bold uppercase text-green-400">Fatto!</h2>
+      <p className="text-neutral-400">Il tuo watermark è stato applicato con successo.</p>
+
+      <button
+        onClick={reset}
+        className="mt-6 bg-red-700 hover:bg-red-600 transition-all px-6 py-3 rounded-xl uppercase font-bold"
+      >
+        Ricomincia
+      </button>
     </div>
   );
 }
