@@ -15,7 +15,7 @@ export default function StepLoading({ image, watermarkText, setFinalImage, next 
         canvas.height = img.height;
         ctx.drawImage(img, 0, 0);
 
-        // Calcola font dinamico per occupare il 70% della larghezza
+        // Font dinamico con Arial Black
         let fontSize = 10;
         const text = watermarkText.toUpperCase();
         ctx.textAlign = 'center';
@@ -24,11 +24,11 @@ export default function StepLoading({ image, watermarkText, setFinalImage, next 
 
         do {
           fontSize += 2;
-          ctx.font = `bold ${fontSize}px Poppins`;
+          ctx.font = `bold ${fontSize}px Arial Black, Arial, sans-serif`;
         } while (ctx.measureText(text).width < canvas.width * 0.7);
         
         fontSize -= 2;
-        ctx.font = `bold ${fontSize}px Poppins`;
+        ctx.font = `bold ${fontSize}px Arial Black, Arial, sans-serif`;
 
         ctx.fillText(text, canvas.width / 2, canvas.height / 2);
 
