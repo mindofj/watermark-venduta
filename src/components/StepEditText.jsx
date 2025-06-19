@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 
-export default function StepEditText({ watermarkText, setWatermarkText, textColor, setTextColor, next }) {
+export default function StepEditText({ watermarkText, setWatermarkText, textColor, setTextColor, image, next }) {
+
   const canvasRef = useRef(null);
   const imageRef = useRef(null);
   const colors = ['red', 'white', 'black', 'green'];
