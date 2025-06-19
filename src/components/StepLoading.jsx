@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export default function StepLoading({ image, watermarkText, setFinalImage, next }) {
+export default function StepLoading({ image, watermarkText, textColor, setFinalImage, next }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -15,18 +15,17 @@ export default function StepLoading({ image, watermarkText, setFinalImage, next 
         canvas.height = img.height;
         ctx.drawImage(img, 0, 0);
 
-        // Font dinamico con Arial Black
         let fontSize = 10;
         const text = watermarkText.toUpperCase();
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = textColor;
 
         do {
           fontSize += 2;
           ctx.font = `bold ${fontSize}px Arial Black, Arial, sans-serif`;
         } while (ctx.measureText(text).width < canvas.width * 0.7);
-        
+
         fontSize -= 2;
         ctx.font = `bold ${fontSize}px Arial Black, Arial, sans-serif`;
 
