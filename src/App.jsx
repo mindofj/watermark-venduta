@@ -42,14 +42,16 @@ export default function App() {
         />
       )}
       {currentStep === 'editText' && (
-        <StepEditText
-          watermarkText={watermarkText}
-          setWatermarkText={setWatermarkText}
-          textColor={textColor}
-          setTextColor={setTextColor}
-          next={next}
-        />
-      )}
+  <StepEditText
+    watermarkText={watermarkText}
+    setWatermarkText={setWatermarkText}
+    textColor={textColor}
+    setTextColor={setTextColor}
+    image={image}    // <-- questa riga nuova
+    next={next}
+  />
+)}
+
       {currentStep === 'loading' && (
         <StepLoading
           image={image}
