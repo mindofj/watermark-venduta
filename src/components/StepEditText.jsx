@@ -36,6 +36,11 @@ export default function StepEditText({ watermarkText, setWatermarkText, textColo
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-4 p-4 text-center">
       <h2 className="text-2xl font-bold uppercase">Modifica il testo</h2>
+      {image && (
+  <div className="max-w-xs max-h-48 mx-auto mb-4 overflow-hidden rounded-lg border border-neutral-700">
+    <img src={image} alt="Anteprima immagine" className="object-contain w-full h-full" />
+  </div>
+)}
       <input
         type="text"
         value={watermarkText}
