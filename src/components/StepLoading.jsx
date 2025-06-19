@@ -15,11 +15,22 @@ export default function StepLoading({ image, watermarkText, setFinalImage, next 
         canvas.height = img.height;
         ctx.drawImage(img, 0, 0);
 
-        ctx.font = `${Math.floor(canvas.width / 15)}px Poppins`;
-        ctx.fillStyle = 'red';
+        // Calcola font dinamico per occupare il 70% della larghezza
+        let fontSize = 10;
+        const text = watermarkText.toUpperCase();
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(watermarkText.toUpperCase(), canvas.width / 2, canvas.height / 2);
+        ctx.fillStyle = 'red';
+
+        do {
+          fontSize += 2;
+          ctx.font = `bold ${fontSize}px Poppins`;
+        } while (ctx.measureText(text).width < canvas.width * 0.7);
+        
+        fontSize -= 2;
+        ctx.font = `bold ${fontSize}px Poppins`;
+
+        ctx.fillText(text, canvas.width / 2, canvas.height / 2);
 
         const final = canvas.toDataURL('image/jpeg');
         setFinalImage(final);
