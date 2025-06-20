@@ -19,17 +19,33 @@ export default function StepLoading({ image, watermarkText, textColor, setFinalI
         const text = watermarkText.toUpperCase();
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillStyle = textColor;
 
-        do {
-          fontSize += 2;
+        // Stile DEMOLITA diverso
+        if (watermarkText === 'DEMOLITA') {
+          ctx.fillStyle = 'black';
+          do {
+            fontSize += 2;
+            ctx.font = `bold ${fontSize}px Arial Black, Arial, sans-serif`;
+          } while (ctx.measureText(text).width < canvas.width * 0.7);
+          fontSize -= 2;
           ctx.font = `bold ${fontSize}px Arial Black, Arial, sans-serif`;
-        } while (ctx.measureText(text).width < canvas.width * 0.7);
 
-        fontSize -= 2;
-        ctx.font = `bold ${fontSize}px Arial Black, Arial, sans-serif`;
+          ctx.save();
+          ctx.translate(canvas.width / 2, canvas.height / 2);
+          ctx.rotate(-0.3);
+          ctx.fillText(text, 0, 0);
+          ctx.restore();
+        } else {
+          ctx.fillStyle = textColor;
+          do {
+            fontSize += 2;
+            ctx.font = `bold ${fontSize}px Arial Black, Arial, sans-serif`;
+          } while (ctx.measureText(text).width < canvas.width * 0.7);
+          fontSize -= 2;
+          ctx.font = `bold ${fontSize}px Arial Black, Arial, sans-serif`;
 
-        ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+          ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+        }
 
         const final = canvas.toDataURL('image/jpeg');
         setFinalImage(final);
@@ -38,11 +54,13 @@ export default function StepLoading({ image, watermarkText, textColor, setFinalI
     }, 1500);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [image, watermarkText, textColor, next, setFinalImage]);
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-6 p-4 text-center">
-      <h2 className="text-2xl font-bold uppercase animate-pulse">Sto applicando il watermark...</h2>
+      <h2 className="text-2xl font-bold uppercase animate-pulse">
+        Sto applicando il watermark...
+      </h2>
       <div className="w-12 h-12 border-4 border-t-transparent border-red-500 rounded-full animate-spin"></div>
       <canvas ref={canvasRef} className="hidden" />
     </div>
