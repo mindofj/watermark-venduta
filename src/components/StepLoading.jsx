@@ -19,31 +19,27 @@ export default function StepLoading({ image, watermarkText, textColor, setFinalI
         const text = watermarkText.toUpperCase();
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
+        ctx.fillStyle = textColor;
 
-        // Stile DEMOLITA diverso
-        if (watermarkText === 'DEMOLITA') {
-          ctx.fillStyle = 'black';
-          do {
-            fontSize += 2;
-            ctx.font = `bold ${fontSize}px Arial Black, Arial, sans-serif`;
-          } while (ctx.measureText(text).width < canvas.width * 0.7);
-          fontSize -= 2;
+        // Calcola dimensione font fino al 70% larghezza canvas
+        do {
+          fontSize += 2;
           ctx.font = `bold ${fontSize}px Arial Black, Arial, sans-serif`;
+        } while (ctx.measureText(text).width < canvas.width * 0.7);
 
+        // Per "DEMOLITA" aumento il font del 15%
+        if (watermarkText === 'DEMOLITA') {
+          fontSize = Math.floor(fontSize * 1.15);
+        }
+        ctx.font = `bold ${fontSize}px Arial Black, Arial, sans-serif`;
+
+        if (watermarkText === 'DEMOLITA') {
           ctx.save();
           ctx.translate(canvas.width / 2, canvas.height / 2);
           ctx.rotate(-0.3);
           ctx.fillText(text, 0, 0);
           ctx.restore();
         } else {
-          ctx.fillStyle = textColor;
-          do {
-            fontSize += 2;
-            ctx.font = `bold ${fontSize}px Arial Black, Arial, sans-serif`;
-          } while (ctx.measureText(text).width < canvas.width * 0.7);
-          fontSize -= 2;
-          ctx.font = `bold ${fontSize}px Arial Black, Arial, sans-serif`;
-
           ctx.fillText(text, canvas.width / 2, canvas.height / 2);
         }
 
@@ -54,7 +50,7 @@ export default function StepLoading({ image, watermarkText, textColor, setFinalI
     }, 1500);
 
     return () => clearTimeout(timer);
-  }, [image, watermarkText, textColor, next, setFinalImage]);
+  }, [image, watermarkText, textColor, setFinalImage, next]);
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-6 p-4 text-center">
