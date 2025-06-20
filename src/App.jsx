@@ -7,7 +7,14 @@ import StepDownload from './components/StepDownload';
 import StepFinal from './components/StepFinal';
 import './index.css';
 
-const steps = ['upload', 'select', 'editText', 'loading', 'download', 'final'];
+const steps = [
+  'upload',
+  'select',
+  'editText',
+  'loading',
+  'download',
+  'final',
+];
 
 export default function App() {
   const [currentStep, setCurrentStep] = useState('upload');
@@ -33,7 +40,9 @@ export default function App() {
 
   return (
     <div className="w-screen h-screen flex items-center justify-center bg-neutral-900 text-white font-poppins">
-      {currentStep === 'upload' && <StepUpload setImage={setImage} next={next} />}
+      {currentStep === 'upload' && (
+        <StepUpload setImage={setImage} next={next} />
+      )}
       {currentStep === 'select' && (
         <StepSelectOption
           setSelectedOption={setSelectedOption}
@@ -42,16 +51,15 @@ export default function App() {
         />
       )}
       {currentStep === 'editText' && (
-  <StepEditText
-    watermarkText={watermarkText}
-    setWatermarkText={setWatermarkText}
-    textColor={textColor}
-    setTextColor={setTextColor}
-    image={image}    // <-- questa riga nuova
-    next={next}
-  />
-)}
-
+        <StepEditText
+          watermarkText={watermarkText}
+          setWatermarkText={setWatermarkText}
+          textColor={textColor}
+          setTextColor={setTextColor}
+          next={next}
+          image={image}
+        />
+      )}
       {currentStep === 'loading' && (
         <StepLoading
           image={image}
